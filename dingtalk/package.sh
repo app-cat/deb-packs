@@ -31,6 +31,8 @@ mv -v "${source_dir}/${release}" $files_dir
 mv -v "${source_dir}/logo.ico" "${dtalk_dir}/"
 mv -v "${source_dir}/version" "${dtalk_dir}/"
 
+rm -rfv /tmp/dingtalk_tmp
+
 echo "复制完成, 创建可执行文件及程序桌面入口文件..."
 
 echo """
