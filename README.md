@@ -4,4 +4,6 @@
 
 ### 应用列表
 
-1. `dingtalk` 钉钉
+- `dingtalk` 钉钉
+
+- `linuxqq` QQ
