@@ -27,11 +27,9 @@ mkdir $tmp_dir
 echo "创建待打包目录..."
 mkdir -p "./unpack/DEBIAN"
 mkdir -p "./unpack/usr/bin"
-# mkdir -p "./unpack/usr/share/applications"
 
 echo "下载官方原包..."
-# wget $deb_url -O "${tmp_dir}/linuxqq.deb"
-cp ~/Downloads/linuxqq_3.1.1-11223_amd64.deb "${tmp_dir}/linuxqq.deb"
+wget $deb_url -O "${tmp_dir}/linuxqq.deb"
 
 
 echo "下载完成, 解包中..."
