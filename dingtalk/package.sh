@@ -1,5 +1,6 @@
 #!/bin/bash
 
+tmp_dir="/tmp/dingtalk_tmp"
 app_name="dingtalk"
 version="1.7.0.30419"
 release="1.7.0-Release.30419"
@@ -7,7 +8,17 @@ release="1.7.0-Release.30419"
 deb_url="https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb"
 
 # 创建临时目录, 用于下载官方包
-mkdir /tmp/dingtalk_tmp
+if [ -d $tmp_dir ]; then
+  rm -rf $tmp_dir
+fi
+
+if [ -d "./unpack" ]; then
+  sudo rm -rf ./unpack
+fi
+
+if [ -f "./${app_name}_${version}.deb" ]; then
+  rm "./${app_name}_${version}.deb"
+fi
 
 # 创建临时待打包目录
 echo "创建待打包目录..."
@@ -16,22 +27,22 @@ mkdir -p "./unpack/usr/bin"
 mkdir -p "./unpack/usr/lib/dingtalk"
 mkdir -p "./unpack/usr/share/applications"
 
-source_dir="/tmp/dingtalk_tmp/dingtalk/opt/apps/com.alibabainc.dingtalk/files"
+source_dir="${tmp_dir}/dingtalk/opt/apps/com.alibabainc.dingtalk/files"
 dtalk_dir="./unpack/usr/lib/dingtalk"
 files_dir="${dtalk_dir}/files"
 
 echo "下载官方原包..."
-wget $deb_url -O /tmp/dingtalk_tmp/dingtalk.deb
+wget $deb_url -O "${tmp_dir}/dingtalk.deb"
 
 echo "下载完成, 解包中..."
-dpkg-deb -R /tmp/dingtalk_tmp/dingtalk.deb /tmp/dingtalk_tmp/dingtalk
+dpkg-deb -R "${tmp_dir}/dingtalk.deb" "${tmp_dir}/dingtalk"
 
 echo "解包完成, 复制到待打包目录..."
-mv -v "${source_dir}/${release}" $files_dir
-mv -v "${source_dir}/logo.ico" "${dtalk_dir}/"
-mv -v "${source_dir}/version" "${dtalk_dir}/"
+mv "${source_dir}/${release}" $files_dir
+mv "${source_dir}/logo.ico" "${dtalk_dir}/"
+mv "${source_dir}/version" "${dtalk_dir}/"
 
-rm -rfv /tmp/dingtalk_tmp
+rm -rf $tmp_dir
 
 echo "复制完成, 创建可执行文件及程序桌面入口文件..."
 
@@ -60,10 +71,9 @@ chmod +x ./unpack/usr/bin/dingtalk
 
 echo "创建完成, 修正包文件中..."
 
+rm ${files_dir}/dingtalk_updater
 
-rm -v ${files_dir}/dingtalk_updater
-
-mv -v ${files_dir}/com.alibabainc.dingtalk ${files_dir}/dingtalk_run
+mv ${files_dir}/com.alibabainc.dingtalk ${files_dir}/dingtalk_run
 
 echo """
 #!/bin/bash
@@ -93,10 +103,23 @@ cd ./unpack
 
 find usr/ -type f | xargs md5sum > DEBIAN/md5sums
 
+echo """
+Package: dingtalk
+Version: ${version}
+Architecture: amd64
+Maintainer: Yutent <yutent.io@gmail.com>
+Depends: libgtk2.0-0
+Installed-Size: 847276 
+Section: chat
+Priority: optional
+Homepage: https://gov.dingtalk.com
+Description: 钉钉
+""" > DEBIAN/control
+
 echo '计算文件md5完成, 打包中...'
 
 cd ..
-sudo chown -R root:root dingtalk
+sudo chown -R root:root unpack
 
 dpkg-deb -b ./unpack "./${app_name}_${version}.deb"
 
