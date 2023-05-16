@@ -7,3 +7,5 @@
 - `dingtalk` 钉钉
 
 - `linuxqq` QQ
+
+- `nvim` NeoVim
