@@ -20,6 +20,8 @@ if [ -f "./${app_name}_${version}.deb" ]; then
   rm "./${app_name}_${version}.deb"
 fi
 
+mkdir $tmp_dir
+
 # 创建临时待打包目录
 echo "创建待打包目录..."
 mkdir -p "./unpack/DEBIAN"
