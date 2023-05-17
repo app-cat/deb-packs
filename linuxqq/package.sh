@@ -2,10 +2,11 @@
 
 tmp_dir="/tmp/linuxqq_tmp"
 app_name="linuxqq"
-version="3.1.1.11223"
-release="3.1.1-11223"
+version="3.1.2.12912"
+release="3.1.2-12912"
+_hash="80d33f88"
 
-deb_url="https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_3.1.1-11223_amd64.deb"
+deb_url="https://dldir1.qq.com/qqfile/qq/QQNT/${_hash}/linuxqq_${release}_amd64.deb"
 
 # 创建临时目录, 用于下载官方包
 if [ -d $tmp_dir ]; then
