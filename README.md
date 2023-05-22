@@ -9,3 +9,5 @@
 - `linuxqq` QQ
 
 - `nvim` NeoVim
+
+- `bun` Incredibly fast JavaScript runtime
