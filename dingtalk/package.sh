@@ -104,6 +104,7 @@ echo "修正完成, 计算文件md5..."
 cd ./unpack
 
 find usr/ -type f | xargs md5sum > DEBIAN/md5sums
+IFS=$'\t' read -ra size <<< "$(du -d 0)"
 
 echo """
 Package: dingtalk
@@ -111,7 +112,7 @@ Version: ${version}
 Architecture: amd64
 Maintainer: Yutent <yutent.io@gmail.com>
 Depends: libgtk2.0-0
-Installed-Size: 847276 
+Installed-Size: ${size[0]}
 Section: chat
 Priority: optional
 Homepage: https://gov.dingtalk.com

@@ -122,12 +122,14 @@ cd ./unpack
 find opt/ -type f | xargs -I {} md5sum {} > DEBIAN/md5sums
 find usr/ -type f | xargs md5sum >> DEBIAN/md5sums
 
+IFS=$'\t' read -ra size <<< "$(du -d 0)"
+
 echo """
 Package: linuxqq
 Version: ${version}
 Architecture: amd64
 Maintainer: Yutent <yutent.io@gmail.com>
-Installed-Size: 412821
+Installed-Size: ${size[0]}
 Depends: libgtk-3-0, libnotify4, libnss3, libxss1, libxtst6, xdg-utils, libatspi2.0-0, libuuid1, libsecret-1-0
 Recommends: libappindicator3-1
 Section: chat

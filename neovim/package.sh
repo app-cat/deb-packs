@@ -46,6 +46,7 @@ echo "复制完成, 计算文件md5..."
 cd ./unpack
 
 find usr/ -type f | xargs md5sum > DEBIAN/md5sums
+IFS=$'\t' read -ra size <<< "$(du -d 0)"
 
 echo """
 Package: neovim
@@ -57,7 +58,7 @@ Replaces: neovim-runtime (<= 0.7.2-7)
 Maintainer: Yutent <yutent.io@gmail.com>
 Priority: optional
 Section: devel
-Installed-Size: 36328
+Installed-Size: ${size[0]}
 Description: heavily refactored vim fork
  Neovim is a fork of Vim focused on modern code and features, rather than
  running in legacy environments.

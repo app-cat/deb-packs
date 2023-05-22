@@ -45,11 +45,13 @@ cd ./unpack
 
 find usr/ -type f | xargs md5sum > DEBIAN/md5sums
 
+IFS=$'\t' read -ra size <<< "$(du -d 0)"
+
 echo """
 Package: bun
 Version: ${version}
 Section: devlop
-Installed-Size: 90324
+Installed-Size: ${size[0]}
 Architecture: amd64
 Maintainer: Yutent <yutent.io@gmail.com>
 Priority: optional
