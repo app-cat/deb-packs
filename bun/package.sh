@@ -2,8 +2,8 @@
 
 tmp_dir="/tmp/bun_tmp"
 app_name="bun"
-version="0.6.2"
-release="v0.6.2"
+version="0.6.9"
+release="v0.6.9"
 
 deb_url="https://github.com/oven-sh/bun/releases/download/bun-${release}/bun-linux-x64.zip"
 
