@@ -2,8 +2,8 @@
 
 tmp_dir="/tmp/dingtalk_tmp"
 app_name="dingtalk"
-version="1.7.0.30419"
-release="1.7.0-Release.30419"
+version="1.8.0.30601"
+release="1.8.0-Release.30601"
 
 deb_url="https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb"
 
